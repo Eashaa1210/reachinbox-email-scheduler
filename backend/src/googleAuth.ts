@@ -7,6 +7,7 @@ const router = Router();
 const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,
   process.env.GOOGLE_CLIENT_SECRET,
+  process.env.GOOGLE_REDIRECT_URI ||
   "http://localhost:5000/api/auth/callback/google"
 );
 
@@ -68,7 +69,7 @@ router.get("/callback/google", async (req, res) => {
     console.log("Google login successful:", user.email);
 
     return res.redirect(
-      `http://localhost:3000?login=success&userId=${user.id}`
+      `${process.env.FRONTEND_URL || "http://localhost:3000"}?login=success&userId=${user.id}`
     );
   } catch (error) {
     console.error("Google OAuth error:", error);

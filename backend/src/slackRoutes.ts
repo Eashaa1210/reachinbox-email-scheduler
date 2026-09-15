@@ -154,7 +154,7 @@ router.get("/callback", async (req, res) => {
     );
 
     return res.redirect(
-      "http://localhost:3000/?slack=connected"
+      `${process.env.FRONTEND_URL || "http://localhost:3000"}/?slack=connected`
     );
   } catch (error) {
     console.error(
