@@ -75,7 +75,17 @@ The system allows users to create email campaigns, upload recipients through CSV
 ````
 
 ---
+## Screenshots
 
+### Dashboard
+
+![ReachInbox Dashboard](screenshots/dashboard.png)
+
+### Compose Campaign
+
+![ReachInbox Compose](screenshots/compose.png)
+
+---
 <details>
 <summary><strong>How It Works</strong></summary>
 
