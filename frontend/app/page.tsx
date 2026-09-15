@@ -73,7 +73,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/auth/user/${userId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/auth/user/${userId}`
       );
 
       const data = await response.json();
@@ -91,7 +91,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/emails?userId=${userId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/emails?userId=${userId}`
       );
 
       const data = await response.json();
@@ -106,7 +106,7 @@ export default function Home() {
 
     try {
       const response = await fetch(
-        `http://localhost:5000/api/senders?userId=${userId}`
+        `${process.env.NEXT_PUBLIC_API_URL}/api/senders?userId=${userId}`
       );
 
       const data = await response.json();
@@ -151,7 +151,7 @@ export default function Home() {
       setLoading(true);
 
       const response = await fetch(
-        `http://localhost:5000/api/search?userId=${userId}&q=${encodeURIComponent(
+        `${process.env.NEXT_PUBLIC_API_URL}/api/search?userId=${userId}&q=${encodeURIComponent(
           search
         )}`
       );
@@ -292,7 +292,7 @@ export default function Home() {
 
       if (uniqueRecipients.length === 1) {
         const response = await fetch(
-          "http://localhost:5000/api/emails/schedule",
+          `${process.env.NEXT_PUBLIC_API_URL}/api/emails/schedule`,
           {
             method: "POST",
             headers: {
@@ -317,7 +317,7 @@ export default function Home() {
 
         setMessage("Email scheduled successfully.");
       } else {
-        const response = await fetch("http://localhost:5000/api/campaigns", {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/campaigns`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -392,7 +392,7 @@ export default function Home() {
           <button
             onClick={() => {
               window.location.href =
-                "http://localhost:5000/api/auth/google";
+                `${process.env.NEXT_PUBLIC_API_URL}/api/auth/google`;
             }}
             className="mt-8 w-full rounded-lg border bg-white px-6 py-3 font-medium shadow-sm hover:bg-gray-50"
           >
