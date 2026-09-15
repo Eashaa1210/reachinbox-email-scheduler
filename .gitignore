@@ -1,0 +1,31 @@
+﻿node_modules/
+.next/
+.env
+.env.*
+!.env.example
+dist/
+*.log
+page-backup.tsx
+worker-backup.ts
+
+# Generated tool files
+backend/.agents/
+backend/.claude/
+backend/.cursor/
+backend/.devin/
+frontend/AGENTS.md
+frontend/CLAUDE.md
+
+# Temporary test scripts
+backend/src/cleanupRateLimitTests.ts
+backend/src/cleanupTest50.ts
+backend/src/clearRateLimits.ts
+backend/src/requeueTest50.ts
+backend/src/reset-rate-limit-test.ts
+
+# Development test scripts
+backend/src/create-test-user.ts
+backend/src/create-test-sender.ts
+backend/src/create-test-email.ts
+backend/src/create-test-campaign.ts
+backend/src/test-*.ts

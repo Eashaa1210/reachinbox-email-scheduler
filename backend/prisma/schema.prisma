@@ -1,0 +1,110 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String?
+  email     String   @unique
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  senders    Sender[]
+  campaigns  Campaign[]
+  emails     Email[]
+  slackConnection SlackConnection?
+}
+
+model Sender {
+  id              Int      @id @default(autoincrement())
+  name            String
+  email           String   @unique
+  smtpHost        String
+  smtpPort        Int
+  smtpUser        String
+  smtpPassword    String
+  hourlyLimit     Int      @default(200)
+  minDelayMs      Int      @default(5000)
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+
+  campaigns       Campaign[]
+  emails          Email[]
+
+  @@index([userId])
+}
+
+model Campaign {
+  id              Int      @id @default(autoincrement())
+  name            String
+  subject         String
+  body            String
+  startTime       DateTime
+  hourlyLimit     Int?
+  delayMs         Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+
+  senderId        Int
+  sender          Sender   @relation(fields: [senderId], references: [id])
+
+  emails          Email[]
+
+  @@index([userId])
+  @@index([senderId])
+}
+
+model Email {
+  id              Int      @id @default(autoincrement())
+  recipient       String
+  subject         String
+  body            String
+
+  scheduledAt     DateTime
+  sentAt          DateTime?
+  status          String   @default("SCHEDULED")
+  processingAt    DateTime?
+
+  jobId           String?  @unique
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+
+  senderId        Int?
+  sender          Sender?   @relation(fields: [senderId], references: [id])
+
+  campaignId      Int?
+  campaign        Campaign? @relation(fields: [campaignId], references: [id])
+
+  @@index([userId, status])
+  @@index([senderId, status])
+  @@index([campaignId])
+  @@index([scheduledAt])
+}
+
+model SlackConnection {
+  id              Int      @id @default(autoincrement())
+  slackUserId     String?
+  teamId          String?
+  accessToken     String
+  webhookUrl      String?
+  connectedAt     DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  userId          Int      @unique
+  user            User     @relation(fields: [userId], references: [id])
+}
