@@ -4,6 +4,8 @@ A full-stack email scheduling and delivery platform built with **Next.js, Node.j
 
 The system allows users to create email campaigns, upload recipients through CSV files, schedule emails, process them through persistent background workers, enforce sending limits, search email history, and monitor delivery activity.
 
+> **Portfolio Project:** Built to demonstrate practical full-stack development, background job processing, distributed system concepts, database integration, search, authentication, and API design.
+
 ---
 
 ## Features
